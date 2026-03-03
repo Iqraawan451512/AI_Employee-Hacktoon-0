@@ -1,0 +1,25 @@
+[Unit]
+Description=AI Employee Gmail Watcher
+After=network.target
+
+[Service]
+Type=simple
+User=ai-employee
+Group=ai-employee
+WorkingDirectory=/opt/ai-employee/watchers
+ExecStart=/opt/ai-employee/watchers/.venv/bin/python gmail_watcher.py --vault-path /opt/ai-employee/AI_Employee_Vault --credentials /opt/ai-employee/secrets/credentials.json --token /opt/ai-employee/watchers/token.json --interval 120
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-gmail-watcher
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ai-employee/AI_Employee_Vault
+ReadWritePaths=/opt/ai-employee/watchers
+ReadOnlyPaths=/opt/ai-employee/secrets
+
+[Install]
+WantedBy=multi-user.target

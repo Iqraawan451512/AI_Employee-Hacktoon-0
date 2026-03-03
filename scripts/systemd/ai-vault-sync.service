@@ -1,0 +1,23 @@
+[Unit]
+Description=AI Employee Vault Git Sync
+After=network.target
+
+[Service]
+Type=simple
+User=ai-employee
+Group=ai-employee
+WorkingDirectory=/opt/ai-employee
+ExecStart=/opt/ai-employee/watchers/.venv/bin/python scripts/vault_sync.py --vault /opt/ai-employee/AI_Employee_Vault --interval 30 --agent cloud
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-vault-sync
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ai-employee
+
+[Install]
+WantedBy=multi-user.target

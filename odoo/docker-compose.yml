@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  odoo:
+    image: odoo:19
+    container_name: ai-employee-odoo
+    depends_on:
+      - postgres
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=postgres
+      - PORT=5432
+      - USER=${POSTGRES_USER:-odoo}
+      - PASSWORD=${POSTGRES_PASSWORD:-odoo_secret}
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - odoo-addons:/mnt/extra-addons
+    restart: unless-stopped
+    networks:
+      - ai-employee-net
+
+  postgres:
+    image: postgres:16
+    container_name: ai-employee-postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${POSTGRES_USER:-odoo}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-odoo_secret}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    networks:
+      - ai-employee-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: ai-employee-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - nginx-certs:/etc/letsencrypt
+      - nginx-www:/var/www/certbot
+    depends_on:
+      - odoo
+    restart: unless-stopped
+    networks:
+      - ai-employee-net
+
+volumes:
+  odoo-data:
+  odoo-addons:
+  postgres-data:
+  nginx-certs:
+  nginx-www:
+
+networks:
+  ai-employee-net:
+    driver: bridge

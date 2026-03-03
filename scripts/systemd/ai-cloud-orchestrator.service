@@ -1,0 +1,25 @@
+[Unit]
+Description=AI Employee Cloud Orchestrator
+After=network.target
+Wants=ai-vault-sync.service
+
+[Service]
+Type=simple
+User=ai-employee
+Group=ai-employee
+WorkingDirectory=/opt/ai-employee/watchers
+ExecStart=/opt/ai-employee/watchers/.venv/bin/python cloud_orchestrator.py --vault-path /opt/ai-employee/AI_Employee_Vault --interval 60
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-cloud-orchestrator
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ai-employee/AI_Employee_Vault
+ReadWritePaths=/opt/ai-employee/watchers
+
+[Install]
+WantedBy=multi-user.target

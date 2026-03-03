@@ -1,0 +1,27 @@
+# Environment and secrets
+.env
+*.env
+.env.*
+credentials.json
+token.json
+secrets/
+odoo/.env
+
+# WhatsApp session (contains browser cookies - never commit)
+whatsapp_session/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Obsidian internal
+.obsidian/
+
+# Processed state files
+.gmail_processed_ids.json
+.whatsapp_processed.json
+
+# OS files
+.DS_Store
+Thumbs.db

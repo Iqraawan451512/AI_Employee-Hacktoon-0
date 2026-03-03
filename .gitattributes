@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Dashboard.md: Local always wins on merge conflicts (single-writer rule)
+AI_Employee_Vault/Dashboard.md merge=ours

@@ -1,0 +1,23 @@
+[Unit]
+Description=AI Employee Health Monitor
+After=network.target
+
+[Service]
+Type=simple
+User=ai-employee
+Group=ai-employee
+WorkingDirectory=/opt/ai-employee/watchers
+ExecStart=/opt/ai-employee/watchers/.venv/bin/python health_monitor.py --vault-path /opt/ai-employee/AI_Employee_Vault --interval 60
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-health-monitor
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ai-employee/AI_Employee_Vault
+
+[Install]
+WantedBy=multi-user.target
