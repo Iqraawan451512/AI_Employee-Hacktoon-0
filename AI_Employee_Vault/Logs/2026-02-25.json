@@ -1,0 +1,75 @@
+[
+  {
+    "timestamp": "2026-02-24T20:00:02Z",
+    "action_type": "file_drop_detected",
+    "actor": "filesystem_watcher",
+    "target": "test_invoice.txt",
+    "parameters": {
+      "source": "Inbox"
+    },
+    "result": "action_file_created"
+  },
+  {
+    "timestamp": "2026-02-25T01:00:00Z",
+    "action_type": "file_processed",
+    "actor": "claude_code",
+    "target": "FILE_20260225_010002_test_invoice.md",
+    "parameters": {
+      "category": "document",
+      "action": "reviewed_and_archived"
+    },
+    "result": "success"
+  },
+  {
+    "timestamp": "2026-02-25T01:15:00Z",
+    "action_type": "inbox_review",
+    "actor": "claude_code",
+    "target": "test_invoice.txt",
+    "parameters": {
+      "category": "document",
+      "content_summary": "System test file - no actionable content",
+      "priority": "medium",
+      "urgent_keywords_found": false
+    },
+    "result": "success"
+  },
+  {
+    "timestamp": "2026-02-25T01:15:00Z",
+    "action_type": "inbox_review",
+    "actor": "claude_code",
+    "target": "test_task.md",
+    "parameters": {
+      "category": "document",
+      "content_summary": "Greeting/test message - no actionable task",
+      "priority": "medium",
+      "urgent_keywords_found": false
+    },
+    "result": "success"
+  },
+  {
+    "timestamp": "2026-02-25T01:15:00Z",
+    "action_type": "files_moved_to_done",
+    "actor": "claude_code",
+    "target": "test_invoice.txt, test_task.md",
+    "parameters": {
+      "source": "Inbox",
+      "destination": "Done",
+      "files_count": 2
+    },
+    "result": "success"
+  },
+  {
+    "timestamp": "2026-02-25T01:25:00Z",
+    "action_type": "inbox_review",
+    "actor": "claude_code",
+    "target": "test_task.md",
+    "parameters": {
+      "category": "document",
+      "content_summary": "Greeting/test message - no actionable task",
+      "priority": "medium",
+      "urgent_keywords_found": false,
+      "handbook_rules_applied": ["file_processing", "priority_check", "urgent_keyword_scan", "audit_logging"]
+    },
+    "result": "success"
+  }
+]

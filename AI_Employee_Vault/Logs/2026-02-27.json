@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2026-02-26T22:19:52Z",
+    "action_type": "linkedin_post_published",
+    "actor": "linkedin_poster",
+    "target": "LinkedIn",
+    "parameters": {
+      "approval_file": "LINKEDIN_POST_20260226_005604.md",
+      "content_length": 529,
+      "dry_run": true
+    },
+    "approval_status": "approved",
+    "approved_by": "human",
+    "result": "success"
+  }
+]
